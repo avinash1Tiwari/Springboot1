@@ -214,6 +214,7 @@ package com.springCrud.example.SpringCrudOperations.Controllers;
 import com.springCrud.example.SpringCrudOperations.Services.EmployeeService;
 import com.springCrud.example.SpringCrudOperations.dto.Employeedto;
 import com.springCrud.example.SpringCrudOperations.utils.ErrorResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -256,7 +257,7 @@ public class                                                                    
     }
 
     @PostMapping(path = "/create")
-    public ResponseEntity<?> createEmployee(@RequestBody Employeedto inputEmp) {
+    public ResponseEntity<?> createEmployee(@RequestBody @Valid Employeedto inputEmp) {
         try {
             ResponseEntity<?> response = empservice.createEmployee(inputEmp);
             return new ResponseEntity<>(response,HttpStatus.CREATED);
