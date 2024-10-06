@@ -223,6 +223,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
@@ -241,13 +242,18 @@ public class                                                                    
     }
 
     @GetMapping(path = "/getall")
-    public List<Employeedto> getAllEmployee() {
-        return empservice.getAllEmployee();
+    public ResponseEntity<List<Employeedto>> getAllEmployee() {
+        return ResponseEntity.ok(empservice.getAllEmployee());
     }
 
     @GetMapping(path = "/{id}")
-    public Employeedto getOneEmployee(@PathVariable Long id) {
-        return empservice.getOneEmployee(id);
+    public ResponseEntity<Employeedto> getOneEmployee(@PathVariable Long id) {
+
+        Optional<Employeedto> employeedto = empservice.getOneEmployee(id);
+
+        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElse(ResponseEntity.notFound().build());
+//    employeedto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+
     }
 
 
@@ -272,7 +278,7 @@ public class                                                                    
     public ResponseEntity<?> createEmployee(@RequestBody Employeedto inputEmp) {
         try {
             ResponseEntity<?> response = empservice.createEmployee(inputEmp);
-            return response;
+            return new ResponseEntity<>(response,HttpStatus.CREATED);
         } catch (Exception e) {
             ErrorResponse errorResponse = new ErrorResponse(
                     "Failed to create employee",
@@ -284,17 +290,29 @@ public class                                                                    
     }
 
 
+//    @PutMapping("/update/{empid}")
+//    public ResponseEntity<Employeedto> updateEmpById(Employeedto inputEmp,Long empid)
+//    {
+//        return ResponseEntity.ok(empservice.updateEmpById(inputEmp,empid));
+//    }
+
     @PutMapping("/update/{empid}")
-    public Employeedto updateEmpById(Employeedto inputEmp,Long empid)
-    {
-        return empservice.updateEmpById(inputEmp,empid);
+    public ResponseEntity<Employeedto> updateEmpById(@RequestBody Employeedto inputEmp, @PathVariable Long empid) {
+        Employeedto updatedEmp = empservice.updateEmpById(inputEmp, empid);
+        return ResponseEntity.ok(updatedEmp);
     }
 
 
+
+
     @DeleteMapping("delete/{empid}")
-    public String deleteById(@PathVariable Long empid)
+    public ResponseEntity<Boolean> deleteById(@PathVariable Long empid)
     {
-        return empservice.deleteById(empid);
+        boolean gotDeleted =  empservice.deleteById(empid);
+
+        if(gotDeleted)  return ResponseEntity.ok(true);
+
+        return ResponseEntity.notFound().build();
     }
 
 

@@ -1,5 +1,6 @@
 package com.springCrud.example.SpringCrudOperations.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
@@ -25,9 +26,11 @@ public class EmployeeEntity {
     private String name;
     private String email;
     private LocalDate dateOfJoining;
+
+    @JsonProperty("isActive")
     private boolean isActive;
 
-
+//hello
     public void setId(Long empId) {
         this.empId=empId;
     }
