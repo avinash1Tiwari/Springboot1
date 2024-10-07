@@ -303,6 +303,7 @@ package com.springCrud.example.SpringCrudOperations.Services;
 import com.springCrud.example.SpringCrudOperations.Entities.EmployeeEntity;
 import com.springCrud.example.SpringCrudOperations.Repositories.EmployeeRepository;
 import com.springCrud.example.SpringCrudOperations.dto.Employeedto;
+import com.springCrud.example.SpringCrudOperations.exceptions.ResourceNotFoundException;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.util.ReflectionUtils;
@@ -387,7 +388,7 @@ public class EmployeeService {
         Optional<EmployeeEntity> existingEmpOpt = empRepo.findById(empId);
 
         if (existingEmpOpt.isEmpty()) {
-            throw new RuntimeException("Employee with ID " + empId + " not found");
+            throw new ResourceNotFoundException("Employee with ID " + empId + " not found");
         }
 
         EmployeeEntity existingEmp = existingEmpOpt.get();
