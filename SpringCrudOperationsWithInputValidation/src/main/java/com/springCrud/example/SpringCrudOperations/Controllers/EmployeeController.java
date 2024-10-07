@@ -213,6 +213,7 @@ package com.springCrud.example.SpringCrudOperations.Controllers;
 
 import com.springCrud.example.SpringCrudOperations.Services.EmployeeService;
 import com.springCrud.example.SpringCrudOperations.dto.Employeedto;
+import com.springCrud.example.SpringCrudOperations.exceptions.ResourceNotFoundException;
 import com.springCrud.example.SpringCrudOperations.utils.ErrorResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -259,7 +260,12 @@ public class                                                                    
 
 
 //        with exceptionHandler
-        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElseThrow( ()-> new NoSuchElementException("Resource not present") );
+//        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElseThrow( ()-> new NoSuchElementException("Resource not present") );
+
+
+
+//        with customExceptionHandler
+        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElseThrow( ()-> new ResourceNotFoundException("Employee not present for this id : " + id) );
     }
 
 
