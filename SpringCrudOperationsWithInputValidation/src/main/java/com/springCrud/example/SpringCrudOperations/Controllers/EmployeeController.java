@@ -216,6 +216,7 @@ import com.springCrud.example.SpringCrudOperations.dto.Employeedto;
 import com.springCrud.example.SpringCrudOperations.utils.ErrorResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 
@@ -223,6 +224,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -251,10 +253,28 @@ public class                                                                    
 
         Optional<Employeedto> employeedto = empservice.getOneEmployee(id);
 
-        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElse(ResponseEntity.notFound().build());
+//        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElse(ResponseEntity.notFound().build());                /// without exception handler
 //    employeedto.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 
+
+
+//        with exceptionHandler
+        return employeedto.map(empdto1 -> ResponseEntity.ok(empdto1)).orElseThrow( ()-> new NoSuchElementException("Resource not present") );
     }
+
+
+//    exception handling using @ExceptionHandler => accessible inside a controller only.
+
+//    @ExceptionHandler(NoSuchElementException.class)
+//    public ResponseEntity<String> handleResourseNotFound(NoSuchElementException exception)
+//    {
+//        return new ResponseEntity<>("Resourse not Found" , HttpStatus.NOT_FOUND);
+//    }
+
+
+
+
+
 
     @PostMapping(path = "/create")
     public ResponseEntity<?> createEmployee(@RequestBody @Valid Employeedto inputEmp) {
