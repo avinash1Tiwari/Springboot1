@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JpaTutorialApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JpaTutorialApplication.class, args);
+
+
 	}
 
 }
