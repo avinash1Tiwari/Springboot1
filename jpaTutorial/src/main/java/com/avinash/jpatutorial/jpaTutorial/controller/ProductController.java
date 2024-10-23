@@ -3,11 +3,10 @@ package com.avinash.jpatutorial.jpaTutorial.controller;
 
 import com.avinash.jpatutorial.jpaTutorial.Repositories.ProductRepositoriy;
 import com.avinash.jpatutorial.jpaTutorial.entities.ProductEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +34,31 @@ public class ProductController {
        return productRepositoriy.findAllByPrice();
    }
 
+   @GetMapping("/all/{sortBy}")
+    public List<ProductEntity> getAllProductSortBy(@PathVariable String sortBy)
+   {
+       return productRepositoriy.findBy(Sort.by(sortBy));
+   }
+
+    @GetMapping("/all/desc/{sortBy}")
+    public List<ProductEntity> getAllProductSortBy1(@PathVariable String sortBy)
+    {
+        return productRepositoriy.findBy(Sort.by(Sort.Direction.DESC,sortBy));
+    }
 
 
+    @GetMapping("/all/twoparams/{sortBy}")
+    public List<ProductEntity> getAllProductSortBy2(@PathVariable String sortBy)
+    {
+        return productRepositoriy.findBy(Sort.by(Sort.Direction.DESC,sortBy,"price"));
+    }
+
+
+    @GetMapping("/all/twoparams/asc-desc/{sortBy}")
+    public List<ProductEntity> getAllProductSortBy3(@PathVariable String sortBy)
+    {
+        return productRepositoriy.findBy(Sort.by(
+                Sort.Order.desc(sortBy),
+                Sort.Order.asc("price")));
+    }
 }

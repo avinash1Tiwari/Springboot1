@@ -1,6 +1,7 @@
 package com.avinash.jpatutorial.jpaTutorial.Repositories;
 
 import com.avinash.jpatutorial.jpaTutorial.entities.ProductEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -32,4 +33,7 @@ public interface ProductRepositoriy extends JpaRepository<ProductEntity,Long> {
      @Query("select e from ProductEntity e order by e.price asc")
      List<ProductEntity> findAllByPrice();
 
+
+//sorting based on passed parameter
+     List<ProductEntity> findBy(Sort sort);
 }
