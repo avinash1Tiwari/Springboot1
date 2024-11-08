@@ -38,7 +38,7 @@ public class ProductEntity {
     private String sku;
 
     @Column(name = "title_x")
-    private String title;                       //// by defaul column name is : title, but with help of @Column, we cqn change it
+    private String title;                       //// by defaul column name in DB is : title, but with help of @Column, we cqn change it
 
     private BigDecimal price;  //// by default column name is : price
 
