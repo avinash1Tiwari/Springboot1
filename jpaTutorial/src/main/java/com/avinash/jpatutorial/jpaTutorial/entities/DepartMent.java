@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -22,7 +24,9 @@ public class DepartMent {
     private String title;
 
     @OneToOne
-    @JoinColumn(name = "department_manager")                 /// to give name of foreign-key , (but if this line is not written, hibernate byDefault provide a name suitably)
+    @JoinColumn(name = "department_manager")      /// to give name of foreign-key , (but if this line is not written, hibernate byDefault provide a name suitably)
     private EmployeeEntity manager;
 
+    @OneToMany(mappedBy = "workerDepartment")
+    private Set<EmployeeEntity> workers;
 }

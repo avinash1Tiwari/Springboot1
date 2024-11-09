@@ -1,5 +1,5 @@
 package com.avinash.jpatutorial.jpaTutorial.entities;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +23,12 @@ public class EmployeeEntity {
     private String name;
 
     @OneToOne(mappedBy = "manager")
+    @JsonIgnore                           // to stop reccursive call while fetching data by  departmentById Api
     private DepartMent departmentManaged;
+
+
+    @ManyToOne
+    @JoinColumn(name = "worker_department_id",referencedColumnName = "id")
+    private DepartMent workerDepartment;
+
 }
