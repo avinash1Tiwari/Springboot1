@@ -52,4 +52,13 @@ public class DepartmentController {
     {
         return departmentService.assignManagerToDepartment(deptId,managerId);
     }
+
+
+    @PutMapping(path = "{deptId}/assignworker/{workerId}")
+    public DepartMent assignWorkerToDepartment(@PathVariable Long deptId,@PathVariable Long workerId)
+    {
+        return departmentService.assignWorkerToDepartment(deptId,workerId);
+    }
+
+
 }

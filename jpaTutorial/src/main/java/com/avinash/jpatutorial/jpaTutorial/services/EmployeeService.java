@@ -4,6 +4,8 @@ import com.avinash.jpatutorial.jpaTutorial.Repositories.EmployeeRepository;
 import com.avinash.jpatutorial.jpaTutorial.entities.EmployeeEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
 
@@ -22,5 +24,9 @@ public class EmployeeService {
     public EmployeeEntity createEmployee(EmployeeEntity employeeEntity) {
 
         return employeeRepository.save(employeeEntity);
+    }
+
+    public List<EmployeeEntity> getAllEmployee() {
+        return employeeRepository.findAll();
     }
 }

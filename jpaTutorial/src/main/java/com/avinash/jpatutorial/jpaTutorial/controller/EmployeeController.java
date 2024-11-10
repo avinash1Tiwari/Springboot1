@@ -4,6 +4,8 @@ import com.avinash.jpatutorial.jpaTutorial.entities.EmployeeEntity;
 import com.avinash.jpatutorial.jpaTutorial.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeController {
@@ -25,5 +27,11 @@ public class EmployeeController {
     public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity)
     {
         return employeeService.createEmployee(employeeEntity);
+    }
+
+    @GetMapping(path = "/getall")
+    public List<EmployeeEntity> getAllEmployee()
+    {
+        return employeeService.getAllEmployee();
     }
 }

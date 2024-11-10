@@ -41,6 +41,7 @@ public class DepartmentService {
         EmployeeEntity manager = employeeRepository.findByName(departmentDto.getManager());
 
 
+
         department.setManager(manager);
 
         return departmentRepository.save(department);
@@ -68,5 +69,22 @@ public class DepartmentService {
 
     public DepartMent getDepartmentByName(String name) {
         return departmentRepository.getDepartmentByName(name);
+    }
+
+    public DepartMent assignWorkerToDepartment(Long deptId, Long workerId) {
+
+        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(workerId);
+        Optional<DepartMent> departMent = departmentRepository.findById(deptId);
+
+        return departMent.flatMap(depart ->
+                employeeEntity.map(employee ->{
+
+                    employee.setWorkerDepartment(depart);
+                    employeeRepository.save(employee);
+                    depart.getWorkers().add(employee);
+                    return depart;
+                })
+
+        ).orElse(null);
     }
 }
