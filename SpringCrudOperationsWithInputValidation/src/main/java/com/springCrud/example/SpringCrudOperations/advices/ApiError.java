@@ -1,6 +1,6 @@
 package com.springCrud.example.SpringCrudOperations.advices;
 
-import lombok.Builder;
+import lombok.Builder;              //// it helps to make this class object
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 

@@ -30,7 +30,8 @@ public class DepartMent {
     @JoinColumn(name = "department_manager")      /// to give name of foreign-key , (but if this line is not written, hibernate byDefault provide a name suitably)
     private EmployeeEntity manager;
 
-    @OneToMany(mappedBy = "workerDepartment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "workerDepartment", fetch = FetchType.LAZY)
+    private Set<EmployeeEntity> workers;               // this will not create a new-column, it is just for aknowledge department that it is connected to employeeEntity
     //3. fetch = FetchType.EAGER
     //Purpose: Specifies that the related entities should be loaded immediately with the parent entity.
     //Effect: When a Department entity is fetched, all associated Worker entities are also loaded at the same time.
@@ -39,7 +40,10 @@ public class DepartMent {
 
 
 
-    private Set<EmployeeEntity> workers;                        // this will not create a new-column, it is just for aknowledge department that it is connected to employeeEntity
+    @ManyToMany(mappedBy = "freelanceDeoartment")
+    private Set<EmployeeEntity> freelancers;
+
+
 
     @Override
     public boolean equals(Object o) {

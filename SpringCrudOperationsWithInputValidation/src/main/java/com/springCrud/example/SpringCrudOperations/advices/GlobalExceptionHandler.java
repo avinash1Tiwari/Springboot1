@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
 
     //handle any other exception
 //@ExceptionHandler(Exception.class)
-//public ResponseEntity<ApiError> handleInternalServerError(Exception exception)
+//public ResponseEntity<ApiError> handleInternalServerError(Exception exception)           => Here we are returning ErrorResponse as instanse of ApiError class
 //{
 //
 //    ApiError apiError = ApiError.builder()
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<?>> handleInternalServerError(Exception exception)
+    public ResponseEntity<ApiResponse<?>> handleInternalServerError(Exception exception)           // => Here we are returning ErrorResponse as instance of ApiResponse.
     {
 
         ApiError apiError = ApiError.builder()

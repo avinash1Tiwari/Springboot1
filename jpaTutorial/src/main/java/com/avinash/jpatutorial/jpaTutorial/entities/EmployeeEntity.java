@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,6 +35,16 @@ public class EmployeeEntity {
     @JoinColumn(name = "worker_department_id",referencedColumnName = "id")
     @JsonIgnore
     private DepartMent workerDepartment;
+
+
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(name = "freelancer_department_mapping",
+    joinColumns = @JoinColumn(name = "employee_id"),
+    inverseJoinColumns = @JoinColumn(name = "department_id"))
+    private Set<DepartMent> freelanceDeoartment;
+
 
 
     @Override

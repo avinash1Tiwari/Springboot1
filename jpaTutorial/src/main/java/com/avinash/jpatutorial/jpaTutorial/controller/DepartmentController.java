@@ -60,5 +60,9 @@ public class DepartmentController {
         return departmentService.assignWorkerToDepartment(deptId,workerId);
     }
 
-
+    @PostMapping(path = "{deptId}/assignfreelancer/{workerId}")
+    public DepartMent assignFreeLancerrToDepartment(@PathVariable Long deptId,@PathVariable Long workerId)
+    {
+        return departmentService.assignFreeLancerrToDepartment(deptId,workerId);
+    }
 }

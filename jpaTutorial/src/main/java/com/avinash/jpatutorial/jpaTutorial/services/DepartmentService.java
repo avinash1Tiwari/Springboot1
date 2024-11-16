@@ -82,4 +82,23 @@ public class DepartmentService {
 
         ).orElse(null);
     }
+
+
+
+
+    public DepartMent assignFreeLancerrToDepartment(Long deptId, Long workerId) {
+
+        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(workerId);
+        Optional<DepartMent> departMent = departmentRepository.findById(deptId);
+
+        return departMent.flatMap(depart ->
+                employeeEntity.map(employee ->{
+                    employee.getFreelanceDeoartment().add(depart);
+                    employeeRepository.save(employee);
+                    depart.getFreelancers().add(employee);
+                    return depart;
+                })
+
+        ).orElse(null);
+    }
 }
