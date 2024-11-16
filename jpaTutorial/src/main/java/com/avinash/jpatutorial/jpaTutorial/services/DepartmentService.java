@@ -5,10 +5,7 @@ import com.avinash.jpatutorial.jpaTutorial.Repositories.EmployeeRepository;
 import com.avinash.jpatutorial.jpaTutorial.dto.DepartmentDto;
 import com.avinash.jpatutorial.jpaTutorial.entities.DepartMent;
 import com.avinash.jpatutorial.jpaTutorial.entities.EmployeeEntity;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +33,6 @@ public class DepartmentService {
         DepartMent department = new DepartMent();
         department.setTitle(departmentDto.getTitle());
 
-        // Find the manager by name
 
         EmployeeEntity manager = employeeRepository.findByName(departmentDto.getManager());
 
@@ -49,7 +45,6 @@ public class DepartmentService {
 
     public DepartMent assignManagerToDepartment(Long deptId,Long maagerId)
     {
-//        taking manager
         Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(maagerId);
         Optional<DepartMent> departMent = departmentRepository.findById(deptId);
 

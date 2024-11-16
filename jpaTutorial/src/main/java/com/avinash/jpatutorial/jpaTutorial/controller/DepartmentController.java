@@ -54,7 +54,7 @@ public class DepartmentController {
     }
 
 
-    @PutMapping(path = "{deptId}/assignworker/{workerId}")
+    @PostMapping(path = "{deptId}/assignworker/{workerId}")
     public DepartMent assignWorkerToDepartment(@PathVariable Long deptId,@PathVariable Long workerId)
     {
         return departmentService.assignWorkerToDepartment(deptId,workerId);
